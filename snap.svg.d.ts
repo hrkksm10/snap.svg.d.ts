@@ -1,7 +1,7 @@
 // Type definitions for Snap.svg Javascript SVG library 0.3.0
 // Project: http://snapsvg.io/
 
-interface SVGElement {
+interface SnapSVGElement extends SVGElement, SVGTextContentElement, SVGTextElement {
 
     snap: string;
 }
@@ -47,8 +47,8 @@ interface SnapMatrix {
 
     rotate(a: number, x?: number, y?: number): SnapMatrix;
 
-    x(x: number, y: number): SnapMatrix;
-    y(x: number, y: number): SnapMatrix;
+    x(x: number, y: number): number;
+    y(x: number, y: number): number;
 
     toString(): string;
 
@@ -112,7 +112,7 @@ interface SnapAnim {
 
 interface SnapGenericElement<TElement> {
 
-    node: SVGElement;
+    node: SnapSVGElement;
     paper: SnapPaper;
     id: string;
     type: string;
@@ -204,8 +204,8 @@ interface SnapGenericElement<TElement> {
     animate(attrs: {}, ms: number, easing: Function, callback?: Function): TElement;
 
     data(key: string, value: any): TElement;
-    data(data: {}): TElement;
     data(key: string): any;
+    data(data: {}): TElement;
     data(): any;
     removeData(key?: string): TElement;
 
@@ -223,49 +223,49 @@ interface SnapGenericElement<TElement> {
 
     // mouse event
 
-    click(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unclick(handler?: Function): SnapElement;
+    click(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unclick(handler?: Function): TElement;
 
-    dblclick(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    undblclick(handler?: Function): SnapElement;
+    dblclick(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    undblclick(handler?: Function): TElement;
 
-    mousedown(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unmousedown(handler?: Function): SnapElement;
+    mousedown(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unmousedown(handler?: Function): TElement;
 
-    mousemove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unmousemove(handler?: Function): SnapElement;
+    mousemove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unmousemove(handler?: Function): TElement;
 
-    mouseout(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unmouseout(handler?: Function): SnapElement;
+    mouseout(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unmouseout(handler?: Function): TElement;
 
-    mouseover(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unmouseover(handler?: Function): SnapElement;
+    mouseover(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unmouseover(handler?: Function): TElement;
 
-    mouseup(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    unmouseup(handler?: Function): SnapElement;
+    mouseup(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    unmouseup(handler?: Function): TElement;
 
-    touchstart(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    untouchstart(handler?: Function): SnapElement;
+    touchstart(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    untouchstart(handler?: Function): TElement;
 
-    touchmove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    untouchmove(handler?: Function): SnapElement;
+    touchmove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    untouchmove(handler?: Function): TElement;
 
-    touchend(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    untouchend(handler?: Function): SnapElement;
+    touchend(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    untouchend(handler?: Function): TElement;
 
-    touchcancel(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): SnapElement;
-    untouchcancel(handler?: Function): SnapElement;
+    touchcancel(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    untouchcancel(handler?: Function): TElement;
 
     hover(f_in: (event: MouseEvent, x: number, y: number) => any,
           f_out: (event: MouseEvent, x: number, y: number) => any,
-          scope_in0?: any, scope_out?: any): SnapElement;
-    unhover(f_in?: Function, f_out?: Function): SnapElement;
+          scope_in0?: any, scope_out?: any): TElement;
+    unhover(f_in?: Function, f_out?: Function): TElement;
 
     drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => void,
          onstart: (x: number, y: number, event: DragEvent) => void,
          onend: (event: DragEvent) => void,
-         move_scope?: any, start_scope?: any, end_scope?: any): SnapElement;
-    undrag(): SnapElement;
+         move_scope?: any, start_scope?: any, end_scope?: any): TElement;
+    undrag(): TElement;
 }
 
 interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
