@@ -8,21 +8,21 @@ interface SnapSVGElement extends SVGElement, SVGTextContentElement, SVGTextEleme
 
 interface SnapBBox {
 
-    cx?: number;     // x of the center
-    cy?: number;     // y of the center
-    h?: number;      // height
+    cx?:    number; // x of the center
+    cy?:    number; // y of the center
+    h?:     number; // height
     height: number; // height
-    path?: any;      // path command for the box
-    r0?: number;     // radius of a circle that fully encloses the box
-    r1?: number;     // radius of the smallest circle that can be enclosed
-    r2?: number;     // radius of the largest circle that can be enclosed
-    vb?: string;     // box as a viewbox command
-    w?: number;      // width
-    width: number;  // width
-    x2: number;     // x of the right side
-    x: number;      // x of the left side
-    y2: number;     // y of the bottom edge
-    y: number;      // y of the top edge
+    path?:  any;    // path command for the box
+    r0?:    number; // radius of a circle that fully encloses the box
+    r1?:    number; // radius of the smallest circle that can be enclosed
+    r2?:    number; // radius of the largest circle that can be enclosed
+    vb?:    string; // box as a viewbox command
+    w?:     number; // width
+    width:  number; // width
+    x2:     number; // x of the right side
+    x:      number; // x of the left side
+    y2:     number; // y of the bottom edge
+    y:      number; // y of the top edge
 }
 
 interface SnapMatrix {
@@ -56,12 +56,12 @@ interface SnapMatrix {
 
     split():
         {
-            dx: number;
-            dy: number;
-            scalex: number;
-            scaley: number;
-            shear: number;
-            rotate: number;
+            dx:       number;
+            dy:       number;
+            scalex:   number;
+            scaley:   number;
+            shear:    number;
+            rotate:   number;
             isSimple: boolean;
         };
 
@@ -83,31 +83,31 @@ interface SnapPathSegments extends Array<any[]> {
 
 interface SnapAnimation {
 
-    attr: any;
-    ms: number;
-    easing: Function;
+    attr:     any;
+    ms:       number;
+    easing:   Function;
     callback: Function;
 }
 
 interface SnapAnim {
 
-    id: string;         // animation id,
-    start:  number;     // start _slave_ number,
-    end: number;        // end _slave_ number,
-    b: number;          // start _master_ number,
-    s: number;          // animation status (0..1),
-    dur: number;        // animation duration,
-    spd: number;        // animation speed,
-    get: Function;      // getter of _master_ number (see @mina.time),
-    set: Function;      // setter of _slave_ number,
-    easing: Function;   // easing function, default is @mina.linear,
-    status: Function;   // status getter/setter,
-    speed: Function;    // speed getter/setter,
+    id:       string;   // animation id,
+    start:    number;   // start _slave_ number,
+    end:      number;   // end _slave_ number,
+    b:        number;   // start _master_ number,
+    s:        number;   // animation status (0..1),
+    dur:      number;   // animation duration,
+    spd:      number;   // animation speed,
+    get:      Function; // getter of _master_ number (see @mina.time),
+    set:      Function; // setter of _slave_ number,
+    easing:   Function; // easing function, default is @mina.linear,
+    status:   Function; // status getter/setter,
+    speed:    Function; // speed getter/setter,
     duration: Function; // duration getter/setter,
-    stop: Function;     // animation stopper
-    pause: Function;    // pauses the animation
-    resume: Function;   // resumes the animation
-    update: Function;   // calles setter with the right value of the animation
+    stop:     Function; // animation stopper
+    pause:    Function; // pauses the animation
+    resume:   Function; // resumes the animation
+    update:   Function; // calles setter with the right value of the animation
 }
 
 interface SnapGenericElement<TElement> {
@@ -174,13 +174,13 @@ interface SnapGenericElement<TElement> {
 
     transform():
         {
-            string: string;
+            string:       string;
             globalMatrix: SnapMatrix;
-            localMatrix: SnapMatrix;
-            diffMatrix: SnapMatrix;
-            global: string;
-            local: string;
-            toString: () => string;
+            localMatrix:  SnapMatrix;
+            diffMatrix:   SnapMatrix;
+            global:       string;
+            local:        string;
+            toString:     () => string;
         };
     transform(tstr: string): TElement;
     transform(matrix: SnapMatrix): TElement;
@@ -194,11 +194,11 @@ interface SnapGenericElement<TElement> {
     marker(x: number, y: number, width: number, height: number, refX: number, refY: number): SnapElement;
     inAnim():
         {
-            anim: SnapAnimation;
-            mina: SnapAnim;
+            anim:      SnapAnimation;
+            mina:      SnapAnim;
             curStatus: number;
-            status: Function;
-            stop: Function;
+            status:    Function;
+            stop:      Function;
         }[];
     stop(): TElement;
     animate(attrs: {}, ms: number, easing: Function, callback?: Function): TElement;
@@ -520,14 +520,14 @@ interface SnapStatic {
         isBBoxIntersect(bbox1: SnapBBox, bbox2: SnapBBox): boolean;
         intersection(path1: string, path2: string):
             {
-                x: number;
-                y: number;
-                t1: number;
-                t2: number;
+                x:        number;
+                y:        number;
+                t1:       number;
+                t2:       number;
                 segment1: number;
                 segment2: number;
-                bez1: any[];
-                bez2: any[];
+                bez1:     any[];
+                bez2:     any[];
             }[];
         intersectionNumber(path1: string, path2: string): number;
         isPointInside(path: string, x: number, y: number): boolean;
@@ -550,12 +550,12 @@ interface MinaStatic {
 
     time(): number;
 
-    linear: Function;
-    easein: Function;
+    linear:  Function;
+    easein:  Function;
     easeout: Function;
-    backin: Function;
+    backin:  Function;
     backout: Function;
-    bounce: Function;
+    bounce:  Function;
     elastic: Function;
 }
 
