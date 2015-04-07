@@ -1,4 +1,4 @@
-// Type definitions for Snap.svg Javascript SVG library 0.3.0
+// Type definitions for Snap.svg Javascript SVG library 0.4.0
 // Project: http://snapsvg.io/
 
 interface SnapSVGElement extends SVGElement, SVGTextContentElement, SVGTextElement {
@@ -221,6 +221,16 @@ interface SnapGenericElement<TElement> {
         };
     getSubpath(from: number, to: number): string;
 
+    children(): TElement[];
+    toJSON(): {
+        type: string;
+        attr: any;
+        childNodes: any[];
+    }
+
+    getAlign(el, way): any; // TODO
+    align(el, way): TElement; // TODO
+
     // mouse event
 
     click(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
@@ -282,6 +292,8 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     use(id?: string): SnapElement;
     use(element?: SnapElement): SnapElement;
 
+    symbol(vx: number, vy: number, vw: number, vh: number): SnapElement;
+
     circle(attr?: {cx: number; cy: number; r: number}): SnapElement;
     circle(cx: number, cy: number, r: number): SnapElement;
 
@@ -315,12 +327,15 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     polygon(...points: number[]): SnapElement;
 
     gradient(gradient: string): SnapElement;
+    gradientLinear(x1: number, y1: number, x2: number, y2: number): SnapElement;
+    gradientRadial(cx: number, cy: number, r: number, fx: number, fy: number): SnapElement;
 
     filter(filter: string): SnapElement;
 
     clear(): void;
 
     toString(): string;
+    toDataURL(): string;
 }
 
 interface SnapElement extends SnapGenericElement<SnapElement> {}
@@ -399,7 +414,23 @@ interface SnapStatic {
     format(token: string, json: {}): string;
     rad(deg: number): number;
     deg(rad: number): number;
+    sin(angle: number): number;
+    tan(angle: number): number;
+    cos(angle: number): number;
+    asin(num: number): number;
+    acos(num: number): number;
+    atan(num: number): number;
+    atan2(num: number): number;
     angle(x1: number, y1: number, x2: number ,y2: number, x3?: number, y3?: number): number;
+    len(x1: number, y1: number, x2: number ,y2: number): number;
+    len2(x1: number, y1: number, x2: number ,y2: number): number;
+    closestPoint(path: SnapElement, x: number, y: number):
+        {
+            x: number;
+            y: number;
+            length: number;
+            distance: number;
+        };
     is(value: any, type: string): boolean;
     snapTo(values: number[], value: number, tolerance?: number): number;
     snapTo(values: number, value: number, tolerance?: number): number;
@@ -539,6 +570,8 @@ interface SnapStatic {
         toString(): string;
         clone(): SnapPathSegments;
     };
+
+    closest(x, y, X, Y); // TODO
 
     animation(attr: {}, ms: number, easing?: Function, callback?: Function): SnapAnimation;
     animate(from: number, to: number, setter: Function, duration: number, easing?: Function, callback?: Function): SnapAnim;
