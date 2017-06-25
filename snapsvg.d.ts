@@ -592,7 +592,7 @@ interface MinaStatic {
     elastic: Function;
 }
 
-declare module "snap.svg" {
+declare module "snapsvg" {
 
     export = Snap;
 }
