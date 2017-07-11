@@ -1,10 +1,11 @@
 // Type definitions for Snap.svg Javascript SVG library 0.4.0
 // Project: http://snapsvg.io/
 
-interface SnapSVGElement extends SVGElement, SVGTextContentElement, SVGTextElement {
+interface SVGElement { snap: string; }
 
-    snap: string;
-}
+interface SVGTextContentElement { snap: string; }
+
+interface SVGTextElement { snap: string; }
 
 interface SnapBBox {
 
@@ -41,7 +42,7 @@ interface SnapMatrix {
 
     clone(): SnapMatrix;
 
-    translate(x :number, y: number): SnapMatrix;
+    translate(x: number, y: number): SnapMatrix;
 
     scale(x: number, y?: number, cx?: number, cy?: number): SnapMatrix;
 
@@ -112,7 +113,7 @@ interface SnapAnim {
 
 interface SnapGenericElement<TElement> {
 
-    node: SnapSVGElement;
+    node: SVGElement | SVGTextContentElement | SVGTextElement;
     paper: SnapPaper;
     id: string;
     type: string;
@@ -226,55 +227,56 @@ interface SnapGenericElement<TElement> {
         type: string;
         attr: any;
         childNodes: any[];
-    }
+    };
 
-    getAlign(el, way): any; // TODO
-    align(el, way): TElement; // TODO
+    getAlign(el: SnapElement, way: string): {dx: number; dy: number; toString(): string};
+    align(el: SnapElement, way: string): TElement;
+    align(way: string): TElement;
 
     // mouse event
 
-    click(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    click(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unclick(handler?: Function): TElement;
 
-    dblclick(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    dblclick(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     undblclick(handler?: Function): TElement;
 
-    mousedown(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    mousedown(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unmousedown(handler?: Function): TElement;
 
-    mousemove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    mousemove(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unmousemove(handler?: Function): TElement;
 
-    mouseout(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    mouseout(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unmouseout(handler?: Function): TElement;
 
-    mouseover(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    mouseover(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unmouseover(handler?: Function): TElement;
 
-    mouseup(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    mouseup(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     unmouseup(handler?: Function): TElement;
 
-    touchstart(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    touchstart(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     untouchstart(handler?: Function): TElement;
 
-    touchmove(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    touchmove(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     untouchmove(handler?: Function): TElement;
 
-    touchend(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    touchend(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     untouchend(handler?: Function): TElement;
 
-    touchcancel(handler: (event: MouseEvent, x: number, y: number) => any, scope?: any): TElement;
+    touchcancel(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     untouchcancel(handler?: Function): TElement;
 
-    hover(f_in: (event: MouseEvent, x: number, y: number) => any,
-          f_out: (event: MouseEvent, x: number, y: number) => any,
-          scope_in0?: any, scope_out?: any): TElement;
-    unhover(f_in?: Function, f_out?: Function): TElement;
+    hover(inHandler: (event: MouseEvent, x: number, y: number) => any,
+          outHandler: (event: MouseEvent, x: number, y: number) => any,
+          inThisArg?: any, outThisArg?: any): TElement;
+    unhover(inHandler?: Function, outHandler?: Function): TElement;
 
-    drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => void,
-         onstart: (x: number, y: number, event: DragEvent) => void,
-         onend: (event: DragEvent) => void,
-         move_scope?: any, start_scope?: any, end_scope?: any): TElement;
+    drag(onMove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => void,
+         onStart: (x: number, y: number, event: DragEvent) => void,
+         onEnd: (event: DragEvent) => void,
+         moveThisArg?: any, startThisArg?: any, endThisArg?: any): TElement;
     undrag(): TElement;
 }
 
@@ -390,14 +392,12 @@ interface SnapStatic {
 
     (selector: string): SnapPaper;
     (svgSvgElement: SVGSVGElement): SnapPaper;
-    (width: number, height: number): SnapPaper;
-    (width: string, height: string): SnapPaper;
+    (width: number, height: number | string): SnapPaper;
     (svgElement: SVGElement): SnapElement;
 
-    ajax(url: string, postData: string, callback: (request: XMLHttpRequest) => void, scope?: any): XMLHttpRequest;
-    ajax(url: string, postData: {}, callback: (request: XMLHttpRequest) => void, scope?: any): XMLHttpRequest;
-    ajax(url: string, callback: (request: XMLHttpRequest) => void, scope?: any): XMLHttpRequest;
-    load(url: string, callback: (fragment: SnapFragment) => void, scope?: any): void;
+    ajax(url: string, postData: string | {}, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
+    ajax(url: string, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
+    load(url: string, callback: (fragment: SnapFragment) => void, thisArg?: any): void;
 
     parse(svgSource: string): SnapFragment;
     fragment(...svgSources: string[]): SnapFragment;
@@ -421,9 +421,9 @@ interface SnapStatic {
     acos(num: number): number;
     atan(num: number): number;
     atan2(num: number): number;
-    angle(x1: number, y1: number, x2: number ,y2: number, x3?: number, y3?: number): number;
-    len(x1: number, y1: number, x2: number ,y2: number): number;
-    len2(x1: number, y1: number, x2: number ,y2: number): number;
+    angle(x1: number, y1: number, x2: number, y2: number, x3?: number, y3?: number): number;
+    len(x1: number, y1: number, x2: number, y2: number): number;
+    len2(x1: number, y1: number, x2: number, y2: number): number;
     closestPoint(path: SnapElement, x: number, y: number):
         {
             x: number;
@@ -432,8 +432,7 @@ interface SnapStatic {
             distance: number;
         };
     is(value: any, type: string): boolean;
-    snapTo(values: number[], value: number, tolerance?: number): number;
-    snapTo(values: number, value: number, tolerance?: number): number;
+    snapTo(values: number[] | number, value: number, tolerance?: number): number;
     getRGB(color: string):
         {
             r: number;
@@ -484,15 +483,15 @@ interface SnapStatic {
             l: number;
         };
     getElementByPoint(mouseX: number, mouseY: number): SnapElement;
-    plugin;
+    plugin(f: Function): void;
 
     matrix(svgMatrix?: SVGMatrix): SnapMatrix;
     matrix(a: number, b: number, c: number, d: number, e: number, f: number): SnapMatrix;
 
-    filter : {
+    filter: {
         blur(x?: number, y?: number): string;
 
-        shadow(dx: number, dy: number, blur: number, color: string, opacity? :number): string;
+        shadow(dx: number, dy: number, blur: number, color: string, opacity?: number): string;
         shadow(dx: number, dy: number, color: string, opacity?: number): string;
         shadow(dx: number, dy: number, opacity?: number): string;
 
@@ -571,7 +570,7 @@ interface SnapStatic {
         clone(): SnapPathSegments;
     };
 
-    closest(x, y, X, Y); // TODO
+    closest(x: number, y: number, X: number, Y: number): boolean;
 
     animation(attr: {}, ms: number, easing?: Function, callback?: Function): SnapAnimation;
     animate(from: number, to: number, setter: Function, duration: number, easing?: Function, callback?: Function): SnapAnim;
