@@ -1,4 +1,4 @@
-// Type definitions for Snap.svg Javascript SVG library 0.4.0
+// Type definitions for Snap.svg Javascript SVG library 0.4.1
 // Project: http://snapsvg.io/
 
 interface SVGElement { snap: string; }
@@ -90,7 +90,7 @@ interface SnapAnimation {
     callback: Function;
 }
 
-interface SnapAnim {
+interface MinaAnimation {
 
     id:       string;   // animation id,
     start:    number;   // start _slave_ number,
@@ -196,7 +196,7 @@ interface SnapGenericElement<TElement> {
     inAnim():
         {
             anim:      SnapAnimation;
-            mina:      SnapAnim;
+            mina:      MinaAnimation;
             curStatus: number;
             status:    Function;
             stop:      Function;
@@ -573,12 +573,12 @@ interface SnapStatic {
     closest(x: number, y: number, X: number, Y: number): boolean;
 
     animation(attr: {}, ms: number, easing?: Function, callback?: Function): SnapAnimation;
-    animate(from: number, to: number, setter: Function, duration: number, easing?: Function, callback?: Function): SnapAnim;
+    animate(from: number, to: number, setter: Function, duration: number, easing?: Function, callback?: Function): MinaAnimation;
 }
 
 interface MinaStatic {
 
-    (a: number, A: number, b: number, B: number, get: Function, set: Function, easing?: Function): SnapAnim;
+    (a: number, A: number, b: number, B: number, get: Function, set: Function, easing?: Function): MinaAnimation;
 
     time(): number;
 
