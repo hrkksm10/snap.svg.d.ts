@@ -1,4 +1,4 @@
-// Type definitions for Snap.svg Javascript SVG library 0.4.1
+// Type definitions for Snap.svg Javascript SVG library 0.5.1
 // Project: http://snapsvg.io/
 
 interface SVGElement { snap: string; }
@@ -38,6 +38,9 @@ interface SnapMatrix {
     add(matrix: SnapMatrix): SnapMatrix;
     add(a: number, b: number, c: number, d: number, e: number, f: number): SnapMatrix;
 
+    multLeft(matrix: SnapMatrix): SnapMatrix;
+    multLeft(a: number, b: number, c: number, d: number, e: number, f: number): SnapMatrix;
+
     invert(): SnapMatrix;
 
     clone(): SnapMatrix;
@@ -47,6 +50,10 @@ interface SnapMatrix {
     scale(x: number, y?: number, cx?: number, cy?: number): SnapMatrix;
 
     rotate(a: number, x?: number, y?: number): SnapMatrix;
+
+    skewX(x: number): SnapMatrix;
+    skewY(y: number): SnapMatrix;
+    skew(x: number, y: number): SnapMatrix;
 
     x(x: number, y: number): number;
     y(x: number, y: number): number;
@@ -201,7 +208,12 @@ interface SnapGenericElement<TElement> {
             status:    Function;
             stop:      Function;
         }[];
+
     stop(): TElement;
+    stops(): SnapSet[];
+    addStop(color: string, offset: number): TElement;
+    setStops(str: string): TElement;
+
     animate(attrs: {}, ms: number, easing: Function, callback?: Function): TElement;
 
     data(key: string, value: any): TElement;
@@ -395,6 +407,9 @@ interface SnapStatic {
     (width: number, height: number | string): SnapPaper;
     (svgElement: SVGElement): SnapElement;
 
+    url(url: string): string;
+    deurl(url: string): string;
+
     ajax(url: string, postData: string | {}, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
     ajax(url: string, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
     load(url: string, callback: (fragment: SnapFragment) => void, thisArg?: any): void;
@@ -574,6 +589,51 @@ interface SnapStatic {
 
     animation(attr: {}, ms: number, easing?: Function, callback?: Function): SnapAnimation;
     animate(from: number, to: number, setter: Function, duration: number, easing?: Function, callback?: Function): MinaAnimation;
+
+    mui: {
+        red: string;
+        pink: string;
+        purple: string;
+        deeppurple: string;
+        indigo: string;
+        blue: string;
+        lightblue: string;
+        cyan: string;
+        teal: string;
+        green: string;
+        lightgreen: string;
+        lime: string;
+        yellow: string;
+        amber: string;
+        orange: string;
+        deeporange: string;
+        brown: string;
+        grey: string;
+        bluegrey: string;
+    };
+
+    flat: {
+        turquoise: string;
+        greensea: string;
+        sunflower: string;
+        orange: string;
+        emerland: string;
+        nephritis: string;
+        carrot: string;
+        pumpkin: string;
+        peterriver: string;
+        belizehole: string;
+        alizarin: string;
+        pomegranate: string;
+        amethyst: string;
+        wisteria: string;
+        clouds: string;
+        silver: string;
+        wetasphalt: string;
+        midnightblue: string;
+        concrete: string;
+        asbestos: string;
+    };
 }
 
 interface MinaStatic {
