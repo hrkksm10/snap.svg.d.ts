@@ -313,7 +313,7 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     path(pathSegments: SnapPathSegments): SnapElement;
     // path(pathArray: any[][]): SnapElement;
 
-    text(attr?: {x?: number; y?: number; text?: any}): SnapElement; // text => string or string[]
+    text(attr?: {x?: number; y?: number; text?: string | string[]}): SnapElement;
     text(x: number, y: number, text?: string): SnapElement;
     text(x: number, y: number, textArray?: string[]): SnapElement;
 
