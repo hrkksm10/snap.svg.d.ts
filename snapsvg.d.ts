@@ -1,4 +1,4 @@
-// Type definitions for Snap.svg Javascript SVG library 0.5.1
+// Type definitions for Snap.svg Javascript SVG library 0.5.2dev(2017-04-18)
 // Project: http://snapsvg.io/
 
 interface SVGElement { snap: string; }
@@ -280,6 +280,21 @@ interface SnapGenericElement<TElement> {
     touchcancel(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
     untouchcancel(handler?: Function): TElement;
 
+    pointerup(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
+    unpointerup(handler?: Function): TElement;
+
+    pointerdown(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
+    unpointerdown(handler?: Function): TElement;
+
+    pointermove(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
+    unpointermove(handler?: Function): TElement;
+
+    pointerout(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
+    unpointerout(handler?: Function): TElement;
+
+    pointerover(handler: (event: MouseEvent, x: number, y: number) => any, thisArg?: any): TElement;
+    unpointerover(handler?: Function): TElement;
+
     hover(inHandler: (event: MouseEvent, x: number, y: number) => any,
           outHandler: (event: MouseEvent, x: number, y: number) => any,
           inThisArg?: any, outThisArg?: any): TElement;
@@ -408,11 +423,12 @@ interface SnapStatic {
     (svgElement: SVGElement): SnapElement;
 
     url(url: string): string;
+    prefixURL(url: string): string;
     deurl(url: string): string;
 
     ajax(url: string, postData: string | {}, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
     ajax(url: string, callback: (request: XMLHttpRequest) => void, thisArg?: any): XMLHttpRequest;
-    load(url: string, callback: (fragment: SnapFragment) => void, thisArg?: any): void;
+    load(url: string, callback: (fragment: SnapFragment) => void, thisArg?: any): XMLHttpRequest;
 
     parse(svgSource: string): SnapFragment;
     fragment(...svgSources: string[]): SnapFragment;
@@ -435,7 +451,7 @@ interface SnapStatic {
     asin(num: number): number;
     acos(num: number): number;
     atan(num: number): number;
-    atan2(num: number): number;
+    atan2(x: number, y: number): number;
     angle(x1: number, y1: number, x2: number, y2: number, x3?: number, y3?: number): number;
     len(x1: number, y1: number, x2: number, y2: number): number;
     len2(x1: number, y1: number, x2: number, y2: number): number;
