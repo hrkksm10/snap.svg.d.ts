@@ -417,6 +417,7 @@ interface SnapSet {
 
 interface SnapStatic {
 
+    (): SnapPaper;
     (selector: string): SnapPaper;
     (svgSvgElement: SVGSVGElement): SnapPaper;
     (width: number, height: number | string): SnapPaper;
@@ -650,6 +651,8 @@ interface SnapStatic {
         concrete: string;
         asbestos: string;
     };
+
+    importMUIColors(): void;
 }
 
 interface MinaStatic {
