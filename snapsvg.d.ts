@@ -1,7 +1,7 @@
 // Type definitions for Snap.svg Javascript SVG library 0.5.2dev(2017-04-18)
 // Project: http://snapsvg.io/
 
-interface SVGElement { snap: string; }
+interface SVGGraphicsElement { snap: string; }
 
 interface SVGTextContentElement { snap: string; }
 
@@ -120,7 +120,7 @@ interface MinaAnimation {
 
 interface SnapGenericElement<TElement> {
 
-    node: SVGElement | SVGTextContentElement | SVGTextElement;
+    node: SVGGraphicsElement | SVGTextContentElement | SVGTextElement;
     paper: SnapPaper;
     id: string;
     type: string;
@@ -129,7 +129,7 @@ interface SnapGenericElement<TElement> {
     attr(attrName: 'viewBox'): SnapBBox;
     attr(attrName: string): any;
     attr(attrName: string, value: any): TElement;
-    attr(params: {viewBox?: number[]}): TElement;
+    attr(params: {viewBox: number[]}|{}): TElement;
 
     append(element: SnapElement): TElement;
     append(set: SnapSet): TElement;
