@@ -169,8 +169,7 @@ interface SnapGenericElement<TElement> {
     selectAll(query: string): SnapSet;
 
     toPattern(x: number, y: number, width: number, height: number): SnapPattern;
-
-    toString(): string;
+    pattern(x: number, y: number, width: number, height: number): SnapPattern;   // alias toPattern
 
     remove(): TElement;
 
@@ -223,6 +222,8 @@ interface SnapGenericElement<TElement> {
     removeData(key?: string): TElement;
 
     outerSVG(): string;
+    toString(): string; // alias outerSVG
+
     innerSVG(): string;
 
     getTotalLength(): number;
@@ -312,8 +313,16 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     el(tagName: string, attr?: {}): SnapElement;
 
     // plugin
+    mask(attr?: {}): SnapMask;
+    mask(...elements: SnapElement[]): SnapMask;
+
+    ptrn(attr?: {}): SnapPattern;
+    ptrn(x: number, y: number, width: number, height: number, vbx?: number, vby?: number, vbw?: number, vbh?: number): SnapPattern;
+
     g(attr?: {}): SnapG;
     g(...elements: SnapElement[]): SnapG;
+    group(attr?: {}): SnapG;                  // alias g
+    group(...elements: SnapElement[]): SnapG; // alias g
 
     svg(attr?: {}): SnapPaper;
     svg(x: number, y: number, width: number, height: number, vbx?: number, vby?: number, vbw?: number, vbh?: number): SnapPaper;
@@ -321,7 +330,7 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     use(id?: string): SnapElement;
     use(element?: SnapElement): SnapElement;
 
-    symbol(vx: number, vy: number, vw: number, vh: number): SnapElement;
+    symbol(vx: number, vy: number, vw: number, vh: number): SnapSymbol;
 
     circle(attr?: {cx: number; cy: number; r: number}): SnapElement;
     circle(cx: number, cy: number, r: number): SnapElement;
@@ -372,26 +381,12 @@ interface SnapPaper extends SnapGenericPaper<SnapPaper> {}
 
 interface SnapG extends SnapGenericPaper<SnapG> {
 
-    mask(attr?: {}): SnapMask;
-    mask(...elements: SnapElement[]): SnapMask;
-
-    ptrn(attr?: {}): SnapPattern;
-    ptrn(x: number, y: number, width: number, height: number, vbx?: number, vby?: number, vbw?: number, vbh?: number): SnapPattern;
-
     add(element: SnapElement): SnapG;
     add(...elements: SnapElement[]): SnapG;
 }
-interface SnapMask extends SnapGenericPaper<SnapMask> {
-
-    ptrn(attr?: {}): SnapPattern;
-    ptrn(x: number, y: number, width: number, height: number, vbx?: number, vby?: number, vbw?: number, vbh?: number): SnapPattern;
-
-}
-interface SnapPattern extends SnapGenericPaper<SnapPattern> {
-
-    mask(attr?: {}): SnapMask;
-    mask(...elements: SnapElement[]): SnapMask;
-}
+interface SnapMask extends SnapGenericPaper<SnapMask> {}
+interface SnapPattern extends SnapGenericPaper<SnapPattern> {}
+interface SnapSymbol extends SnapGenericPaper<SnapSymbol> {}
 
 interface SnapSet {
 
