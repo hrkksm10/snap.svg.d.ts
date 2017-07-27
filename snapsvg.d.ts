@@ -301,9 +301,9 @@ interface SnapGenericElement<TElement> {
           inThisArg?: any, outThisArg?: any): TElement;
     unhover(inHandler?: Function, outHandler?: Function): TElement;
 
-    drag(onMove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => void,
-         onStart: (x: number, y: number, event: DragEvent) => void,
-         onEnd: (event: DragEvent) => void,
+    drag(onMove?: (dx: number, dy: number, x: number, y: number, event: DragEvent) => void,
+         onStart?: (x: number, y: number, event: DragEvent) => void,
+         onEnd?: (event: DragEvent) => void,
          moveThisArg?: any, startThisArg?: any, endThisArg?: any): TElement;
     undrag(): TElement;
 }
