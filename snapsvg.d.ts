@@ -134,6 +134,7 @@ interface SnapGenericElement<TElement> {
     append(element: SnapElement): TElement;
     append(set: SnapSet): TElement;
     append(fragment: SnapFragment): TElement;
+    add(element: SnapElement): TElement; // alias append
 
     appendTo(element: HTMLElement): TElement;
     appendTo(element: SnapElement): TElement;
@@ -381,7 +382,6 @@ interface SnapPaper extends SnapGenericPaper<SnapPaper> {}
 
 interface SnapG extends SnapGenericPaper<SnapG> {
 
-    add(element: SnapElement): SnapG;
     add(...elements: SnapElement[]): SnapG;
 }
 interface SnapMask extends SnapGenericPaper<SnapMask> {}
@@ -669,5 +669,5 @@ declare module "snapsvg" {
 
     export = Snap;
 }
-declare var Snap: SnapStatic;
-declare var mina: MinaStatic;
+declare const Snap: SnapStatic;
+declare const mina: MinaStatic;
