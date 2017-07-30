@@ -5,8 +5,6 @@ interface SVGGraphicsElement { snap: string; }
 
 interface SVGTextContentElement { snap: string; }
 
-interface SVGTextElement { snap: string; }
-
 interface SnapBBox {
 
     cx?:    number; // x of the center
@@ -120,7 +118,7 @@ interface MinaAnimation {
 
 interface SnapGenericElement<TElement> {
 
-    node: SVGGraphicsElement | SVGTextContentElement | SVGTextElement;
+    node: SVGGraphicsElement;
     paper: SnapPaper;
     id: string;
     type: string;
@@ -134,9 +132,7 @@ interface SnapGenericElement<TElement> {
     append(element: SnapElement): TElement;
     append(set: SnapSet): TElement;
     append(fragment: SnapFragment): TElement;
-    add(element: SnapElement): TElement;   // alias append
-    add(set: SnapSet): TElement;           // alias append
-    add(fragment: SnapFragment): TElement; // alias append
+    add(obj: SnapElement | SnapSet | SnapFragment): TElement; // alias append
 
     appendTo(element: HTMLElement): TElement;
     appendTo(element: SnapElement): TElement;
@@ -352,9 +348,9 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
     path(pathSegments: SnapPathSegments): SnapElement;
     // path(pathArray: any[][]): SnapElement;
 
-    text(attr?: {x?: number; y?: number; text?: string | string[]}): SnapElement;
-    text(x: number, y: number, text?: string): SnapElement;
-    text(x: number, y: number, textArray?: string[]): SnapElement;
+    text(attr?: {x?: number; y?: number; text?: string | string[]}): SnapTextElement;
+    text(x: number, y: number, text?: string): SnapTextElement;
+    text(x: number, y: number, textArray?: string[]): SnapTextElement;
 
     line(attr?: {x1: number; y1: number; x2: number; y2: number}): SnapElement;
     line(x1: number, y1: number, x2: number, y2: number): SnapElement;
@@ -380,10 +376,10 @@ interface SnapGenericPaper<TPaper> extends SnapGenericElement<TPaper> {
 }
 
 interface SnapElement extends SnapGenericElement<SnapElement> {}
+interface SnapTextElement extends SnapGenericElement<SnapTextElement> { node: SVGTextContentElement; }
+
 interface SnapPaper extends SnapGenericPaper<SnapPaper> {}
-
 interface SnapG extends SnapGenericPaper<SnapG> {
-
     add(...elements: SnapElement[]): SnapG;
 }
 interface SnapMask extends SnapGenericPaper<SnapMask> {}
