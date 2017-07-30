@@ -134,7 +134,9 @@ interface SnapGenericElement<TElement> {
     append(element: SnapElement): TElement;
     append(set: SnapSet): TElement;
     append(fragment: SnapFragment): TElement;
-    add(element: SnapElement): TElement; // alias append
+    add(element: SnapElement): TElement;   // alias append
+    add(set: SnapSet): TElement;           // alias append
+    add(fragment: SnapFragment): TElement; // alias append
 
     appendTo(element: HTMLElement): TElement;
     appendTo(element: SnapElement): TElement;
