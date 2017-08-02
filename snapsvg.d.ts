@@ -125,7 +125,7 @@ interface SnapGenericElement<TElement> {
 
     // core
     attr(attrName: 'viewBox'): SnapBBox;
-    attr(attrName: string): any;
+    attr(attrName: string): string;
     attr(attrName: string, value: any): TElement;
     attr(params: {viewBox: number[]}|{}): TElement;
 
